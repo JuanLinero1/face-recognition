@@ -1,3 +1,122 @@
+.logo {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(to right, #2755aa, #a91ead);
+  width: 130px;
+  height: 130px;
+  border-radius: 20px;
+}
+.logo img {
+  width: 70%;
+}
 
+.application {
+  width: 400px;
+  height: 450px;
+  border: 2px solid black;
+  background: linear-gradient(to left, #2755aa, #a91ead);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column nowrap;
+  gap: 20px;
+  font-size: 1.6rem;
+  padding: 30px;
+  border-radius: 30px;
+  box-shadow: 3px 3px 30px black;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  right: 0;
+  bottom: 0;
+  transform: translateX(-50%) translateY(-50%);
+}
+.application-title {
+  width: 85%;
+  text-align: center;
+  font-weight: 600;
+  margin: 0 0 10px 0;
+}
+.application--form {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column nowrap;
+  gap: 20px;
+}
+.application--form-input {
+  width: 90%;
+  font-size: 1.3rem;
+  padding: 3px 8px;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+}
+.application--form-submit {
+  padding: 5px 10px;
+  font-size: 1.2rem;
+  background: lightgreen;
+  border: 1px solid black;
+  border-radius: 6px;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+.application--form-submit:hover {
+  transform: scale(1.05);
+}
+.application--form-submit:active {
+  transform: scale(0.98);
+}
+
+.navigation-title {
+  color: black;
+  font-size: 2rem;
+  position: absolute;
+  top: 50px;
+  right: 30px;
+  cursor: pointer;
+}
+.navigation-title::before {
+  content: "";
+  width: 100%;
+  height: 3px;
+  background-color: black;
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  transform: scaleX(0);
+  transition: all 2s ease-in-out;
+}
+.navigation-title:hover::before {
+  transform: scaleX(1);
+}
+
+.rank {
+  font-size: 1.3rem;
+  text-align: center;
+}
+.rank span {
+  color: #00ff15;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  padding: 40px;
+}
+
+#tsparticles {
+  position: absolute;
+  z-index: -1;
+}
 
 /*# sourceMappingURL=main.css.map */

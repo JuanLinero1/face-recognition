@@ -1,0 +1,22 @@
+@use './styles/components/Logo.scss';
+@use './styles/components/faceRecognition.scss';
+@use './styles/components/imageLinkForm.scss';
+@use './styles/components/navigation.scss';
+@use './styles/components/rank.scss';
+
+@use './styles/pages/form.scss';
+@use './styles/pages/home.scss';
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+body{
+  padding: 40px;
+}
+#tsparticles{
+  position: absolute;
+  z-index: -1;
+}

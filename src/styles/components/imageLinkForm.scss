@@ -1,0 +1,64 @@
+.application {
+  width: 400px;
+  height: 450px;
+  border: 2px solid black;
+  background: linear-gradient(to left, #2755aa, #a91ead);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column nowrap;
+  gap: 20px;
+  font-size: 1.6rem;
+  padding: 30px;
+  border-radius: 30px;
+  box-shadow: 3px 3px 30px black;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  right: 0;
+  bottom: 0;
+  transform: translateX(-50%) translateY(-50%);
+
+  &-title {
+    width: 85%;
+    text-align: center;
+    font-weight: 600;
+    margin: 0 0 10px 0;
+  }
+
+  &--form {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column nowrap;
+    gap: 20px;
+
+    &-input {
+      width: 90%;
+      font-size: 1.3rem;
+      padding: 3px 8px;
+      border: none;
+      outline: none;
+      border-radius: 5px;
+    }
+    &-submit{
+      padding: 5px 10px;
+      font-size: 1.2rem;
+      background: lightgreen;
+      border: 1px solid black; 
+      border-radius: 6px;
+      outline: none;
+      cursor: pointer;
+      transition: all .2s ease-in-out;
+
+      &:hover{
+        transform: scale(1.05);
+      }
+      &:active{
+        transform: scale(.98);
+      }
+    }
+  }
+}

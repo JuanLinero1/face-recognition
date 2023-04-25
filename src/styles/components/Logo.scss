@@ -1,0 +1,13 @@
+.logo{
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(to right, #2755aa, #a91ead);
+  width: 130px;
+  height: 130px;
+  border-radius: 20px;
+
+  img{
+    width: 70%;
+  }
+}
