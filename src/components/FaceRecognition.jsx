@@ -1,8 +1,11 @@
 import React from 'react'
 
-const FaceRecognition = () => {
+const FaceRecognition = (props) => {
+  console.log(props)
   return (
-    <div></div>
+    <div className='container'>
+      <img src={props.inputUrl} alt="" className='container__img' />
+    </div>
   )
 }
 

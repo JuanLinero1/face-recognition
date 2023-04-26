@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Rank from "./rank";
 
-const ImageLinkForm = () => {
+const ImageLinkForm = (props) => {
+  const [url, setUrl] = useState("")
+
+  useEffect(() => {
+    console.log(url)
+  }, [url])
+
   return (
     <div className="application">
       <Rank />
@@ -13,11 +19,16 @@ const ImageLinkForm = () => {
           type="text"
           className="application--form-input"
           placeholder="Add a link"
+          onChange={e => setUrl(e.target.value)}
         />
         <button
           type="submit"
           className="application--form-submit"
-          onClick={(e) => e.preventDefault()}
+          onClick={(e) => {
+            e.preventDefault();
+            props.clarifaiExe();
+            props.setInputUrl(url)
+          }}
         >
           Detect
         </button>
