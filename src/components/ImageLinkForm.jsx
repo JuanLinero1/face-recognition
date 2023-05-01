@@ -4,10 +4,6 @@ import Rank from "./rank";
 const ImageLinkForm = (props) => {
   const [url, setUrl] = useState("")
 
-  useEffect(() => {
-    console.log(url)
-  }, [url])
-
   return (
     <div className="application">
       <Rank />
@@ -27,7 +23,7 @@ const ImageLinkForm = (props) => {
           onClick={(e) => {
             e.preventDefault();
             props.clarifaiExe();
-            props.setInputUrl(url)
+            props.setInputUrl({ imageUrl: url })
           }}
         >
           Detect

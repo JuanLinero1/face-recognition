@@ -15,7 +15,19 @@ const App = () => {
     input: "",
     imageUrl:
       "https://th.bing.com/th/id/R.bfab58b382b3a71ba15ab9419e2f4d69?rik=RJVXvXwXgjFCUw&riu=http%3a%2f%2fimage.tmdb.org%2ft%2fp%2foriginal%2fhErUwonrQgY5Y7RfxOfv8Fq11MB.jpg&ehk=3mEIzCrqsR%2fy7i21Wbo1xx5%2bhOXCLUez3sW3RUJ4yWs%3d&risl=&pid=ImgRaw&r=0",
+    box: {},
   });
+
+
+  const calculateFaceLocation = (data) => {
+    const image = document.getElementsByClassName("container__img")
+    console.log(image[0])
+    const width = Number(image[0].width)
+    const height = Number(image[0].height)
+
+    
+  }
+  calculateFaceLocation()
 
   const clarifaiApiExecution = () => {
     const raw = JSON.stringify({
@@ -48,10 +60,12 @@ const App = () => {
       requestOptions
     )
       .then((response) => response.json())
-      .then((result) => console.log(result))
+      .then((result) => {
+        const FACE_RECOGNITION_VECTOR = result.outputs[0].data.regions[0].region_info.bounding_box
+        FaceRecognition(FACE_RECOGNITION_VECTOR)
+        console.log(FACE_RECOGNITION_VECTOR)
+      })
       .catch((error) => console.log("error", error));
-
-    console.log(input.imageUrl)
   };
 
   const particlesInit = useCallback(async (engine) => {
