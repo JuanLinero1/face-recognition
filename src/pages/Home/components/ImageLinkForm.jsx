@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import Rank from "./rank";
 
 const ImageLinkForm = (props) => {
-  const [url, setUrl] = useState("")
+  const [url, setUrl] = useState("");
 
   return (
     <div className="application">
-      <Rank />
+      <Rank userInformation={{ props }} />
       <h5 className="application-title">
         this Magic Brain will detect face in pictures. Give it a try.
       </h5>
@@ -15,7 +15,7 @@ const ImageLinkForm = (props) => {
           type="text"
           className="application--form-input"
           placeholder="Add a link"
-          onChange={e => setUrl(e.target.value)}
+          onChange={(e) => setUrl(e.target.value)}
         />
         <button
           type="submit"
@@ -23,7 +23,7 @@ const ImageLinkForm = (props) => {
           onClick={(e) => {
             e.preventDefault();
             props.clarifaiExe();
-            props.setInputUrl({ imageUrl: url })
+            props.setInputUrl((prevState) => ({ ...prevState, imageUrl: url }));
           }}
         >
           Detect

@@ -1,6 +1,6 @@
 import React from "react";
 import { Tilt } from "react-tilt";
-import brain from "../../public/assets/Brain.png";
+import brain from "/public/assets/Brain.png";
 
 const Logo = () => {
   const defaultOptions = {
