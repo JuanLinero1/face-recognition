@@ -16,10 +16,10 @@ const Home = () => {
     box: {},
   });
   const [userInformation, setUserInformation] = useState({
-    userID: "1",
     userName: "Guest",
     userEntries: "0",
   });
+  const [userId, setUserId] = useState(0);
 
   const calculateFaceLocation = (data) => {
     const image = document.getElementById("container__img");
@@ -70,9 +70,21 @@ const Home = () => {
     )
       .then((response) => response.json())
       .then(async (result) => {
-        console.log(result)
         const FACE_RECOGNITION_VECTOR =
           result.outputs[0].data.regions[0].region_info.bounding_box;
+
+        if (result.status.description == "Ok") {
+          const response = await fetch("http://localhost:4000/image", {
+            method: "put",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              reqId: userId,
+            }),
+          });
+          const data = await response.json();
+          setUserInformation({ ...userInformation, userEntries: data });
+        }
+
         return displayBox(calculateFaceLocation(FACE_RECOGNITION_VECTOR));
       })
       .catch((error) => console.log("error", error));
@@ -89,7 +101,10 @@ const Home = () => {
   return (
     <div>
       <Logo />
-      <Navigation setUserInformation={setUserInformation} />
+      <Navigation
+        setUserInformation={setUserInformation}
+        setUserId={setUserId}
+      />
       <ImageLinkForm
         userInformation={{ userInformation }}
         setUserInformation={setUserInformation}

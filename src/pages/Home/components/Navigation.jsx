@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 const Navigation = (props) => {
   const [conditionLog, setConditionLog] = useState(false);
@@ -12,11 +12,9 @@ const Navigation = (props) => {
   const fetchInformation = async (id) => {
     const response = await fetch(`http://localhost:4000/profile:${id}`);
     const data = await response.json();
-    console.log(data)
 
-    return props.setUserInformation({userName: data.serverResponse.userName, userEntries: data.serverResponse.userEntries})
+    return props.setUserInformation({userName: data.userName, userEntries: data.userEntries})
   }
-
   const onSubmitEvent = async () => {
     const response = await fetch("http://localhost:4000/signIn", {
       method: "post",
@@ -33,9 +31,8 @@ const Navigation = (props) => {
     } else {  
       console.log("there was an error: " + response.statusText);
     }
-    console.log(data)
-    props.setUserInformation({userID: data.serverResponse.id})
-    fetchInformation(data.serverResponse.id)
+    props.setUserId(data.id)
+    fetchInformation(data.id)
   };
 
   const onSubmitEventRegister = async () => {
