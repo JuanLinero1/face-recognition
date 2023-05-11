@@ -9,14 +9,8 @@ const Navigation = (props) => {
   const [userPassword, setUserPassword] = useState("");
   const [userName, setUserName] = useState("");
 
-  const fetchInformation = async (id) => {
-    const response = await fetch(`http://localhost:4000/profile:${id}`);
-    const data = await response.json();
-
-    return props.setUserInformation({userName: data.userName, userEntries: data.userEntries})
-  }
   const onSubmitEvent = async () => {
-    const response = await fetch("http://localhost:4000/signIn", {
+    const response = await fetch("https://face-recognition-node.onrender.com/signIn", {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -25,18 +19,19 @@ const Navigation = (props) => {
       }),
     });
     const data = await response.json();
-    if (response.statusText == "OK") {
+    if (response.status === 200) {
       setConditionOut(true);
       setConditionLog(false);
     } else {  
-      console.log("there was an error: " + response.statusText);
+      console.log("there was an error: " + response.status);
     }
+    props.setUserInformation({userName: data.name, userEntries: data.entries})
+    console.log(data.id)
     props.setUserId(data.id)
-    fetchInformation(data.id)
   };
 
   const onSubmitEventRegister = async () => {
-    const response = await fetch("http://localhost:4000/register", {
+    const response = await fetch("https://face-recognition-node.onrender.com/register", {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -66,6 +61,7 @@ const Navigation = (props) => {
         className={`navigation-title ${conditionOut ? "active" : "inactive"}`}
         onClick={() => {
           setConditionOut(false);
+          props.setUserInformation({userName: "Guest", userEntries: 0})
         }}
       >
         Sign Out

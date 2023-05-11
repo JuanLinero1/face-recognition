@@ -1,11 +1,8 @@
-@use './styles/components/Logo.scss';
-@use './styles/components/faceRecognition.scss';
-@use './styles/components/imageLinkForm.scss';
-@use './styles/components/navigation.scss';
-@use './styles/components/rank.scss';
-
-@use './styles/pages/form.scss';
-@use './styles/pages/home.scss';
+@use './styles/components/_Logo.scss';
+@use './styles/components/_faceRecognition.scss';
+@use './styles/components/_imageLinkForm.scss';
+@use './styles/components/_navigation.scss';
+@use './styles/components/_rank.scss';
 
 *{
   margin: 0;

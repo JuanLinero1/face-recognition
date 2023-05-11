@@ -26,6 +26,7 @@ const Home = () => {
     const width = Number(image.width);
     const height = Number(image.height);
 
+
     return {
       topCol: data.top_row * width,
       leftCol: data.left_col * height,
@@ -72,9 +73,8 @@ const Home = () => {
       .then(async (result) => {
         const FACE_RECOGNITION_VECTOR =
           result.outputs[0].data.regions[0].region_info.bounding_box;
-
         if (result.status.description == "Ok") {
-          const response = await fetch("http://localhost:4000/image", {
+          const response = await fetch("https://face-recognition-node.onrender.com/image", {
             method: "put",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -82,7 +82,7 @@ const Home = () => {
             }),
           });
           const data = await response.json();
-          setUserInformation({ ...userInformation, userEntries: data });
+          setUserInformation({ ...userInformation, userEntries: data[0].entries });
         }
 
         return displayBox(calculateFaceLocation(FACE_RECOGNITION_VECTOR));
