@@ -23,7 +23,7 @@ const Navigation = (props) => {
   }
 
   const onSubmitEvent = async () => {
-    const response = await fetch("http://localhost:4000/signIn", {
+    const response = await fetch("https://face-recognition-node.onrender.com/signIn", {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -44,7 +44,7 @@ const Navigation = (props) => {
   };
 
   const onSubmitEventRegister = async () => {
-    const response = await fetch("http://localhost:4000/register", {
+    const response = await fetch("https://face-recognition-node.onrender.com/register", {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

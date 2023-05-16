@@ -87,7 +87,7 @@ const Home = () => {
         DATA.outputs[0].data.regions[0].region_info.bounding_box;
 
       if (DATA.status.code == 10000) {
-        const response = await fetch("http://localhost:4000/image", {
+        const response = await fetch("https://face-recognition-node.onrender.com/image", {
           method: "put",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
