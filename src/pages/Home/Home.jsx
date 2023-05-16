@@ -9,7 +9,7 @@ import Particles from "react-particles";
 import { useCallback } from "react";
 import { loadFull } from "tsparticles";
 import { toast, ToastContainer } from 'react-toastify';
-import "react-toastify/dist/ReactToastify.css";
+import 'react-toastify/dist/ReactToastify.min.css';
 
 const Home = () => {
   const [input, setInput] = useState({
