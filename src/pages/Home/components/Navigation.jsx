@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { toast, ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 const Navigation = (props) => {
   const [conditionLog, setConditionLog] = useState(false);
@@ -9,8 +11,19 @@ const Navigation = (props) => {
   const [userPassword, setUserPassword] = useState("");
   const [userName, setUserName] = useState("");
 
+  const optionToast = {
+    position: "top-left",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+  }
+
   const onSubmitEvent = async () => {
-    const response = await fetch("https://face-recognition-node.onrender.com/signIn", {
+    const response = await fetch("http://localhost:4000/signIn", {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -20,18 +33,18 @@ const Navigation = (props) => {
     });
     const data = await response.json();
     if (response.status === 200) {
+      toast.success('Successfuly created an account', optionToast)
       setConditionOut(true);
       setConditionLog(false);
+      props.setUserInformation({userName: data.name, userEntries: data.entries})
+      props.setUserId(data.id)
     } else {  
-      console.log("there was an error: " + response.status);
+      toast.error('User not found', optionToast)
     }
-    props.setUserInformation({userName: data.name, userEntries: data.entries})
-    console.log(data.id)
-    props.setUserId(data.id)
   };
 
   const onSubmitEventRegister = async () => {
-    const response = await fetch("https://face-recognition-node.onrender.com/register", {
+    const response = await fetch("http://localhost:4000/register", {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -42,8 +55,9 @@ const Navigation = (props) => {
     });
     if (response.statusText == "OK") {
       setConditionRegister(false);
+      toast.success("account registered succesfully", optionToast)
     } else {
-      console.log("there was an error: " + response.statusText);
+      toast.error("We couldn't register the account", optionToast)
     }
   };
 

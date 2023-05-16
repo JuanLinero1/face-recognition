@@ -8,11 +8,13 @@ import Navigation from "./components/Navigation";
 import Particles from "react-particles";
 import { useCallback } from "react";
 import { loadFull } from "tsparticles";
+import { toast, ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 const Home = () => {
   const [input, setInput] = useState({
     imageUrl:
-      "https://th.bing.com/th/id/R.bfab58b382b3a71ba15ab9419e2f4d69?rik=RJVXvXwXgjFCUw&riu=http%3a%2f%2fimage.tmdb.org%2ft%2fp%2foriginal%2fhErUwonrQgY5Y7RfxOfv8Fq11MB.jpg&ehk=3mEIzCrqsR%2fy7i21Wbo1xx5%2bhOXCLUez3sW3RUJ4yWs%3d&risl=&pid=ImgRaw&r=0",
+      "",
     box: {},
   });
   const [userInformation, setUserInformation] = useState({
@@ -21,11 +23,21 @@ const Home = () => {
   });
   const [userId, setUserId] = useState(0);
 
+  const optionToast = {
+    position: "top-left",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+  }
+
   const calculateFaceLocation = (data) => {
     const image = document.getElementById("container__img");
     const width = Number(image.width);
     const height = Number(image.height);
-
 
     return {
       topCol: data.top_row * width,
@@ -35,11 +47,11 @@ const Home = () => {
     };
   };
 
-  const clarifaiApiExecution = () => {
-    const raw = JSON.stringify({
+  const clarifaiApiExecution = async () => {
+    const RAW = JSON.stringify({
       user_app_id: {
-        user_id: "lezeri",
-        app_id: "face-recognition",
+        user_id: "clarifai",
+        app_id: "main",
       },
       inputs: [
         {
@@ -52,42 +64,46 @@ const Home = () => {
       ],
     });
 
-    const requestOptions = {
+    const REQUEST_OPTIONS = {
       method: "POST",
       headers: {
         Accept: "application/json",
-        Authorization: "Key " + import.meta.env.VITE_API_KEY,
+        Authorization: "Key " + "acc1ef3cb3104f6a9819c9515f2b8ac0",
       },
-      body: raw,
+      body: RAW,
     };
 
     const displayBox = (box) => {
       return setInput((prevState) => ({ ...prevState, box: box }));
     };
 
-    fetch(
-      `https://api.clarifai.com/v2/models/face-detection/versions/6dc7e46bc9124c5c8824be4822abe105/outputs`,
-      requestOptions
-    )
-      .then((response) => response.json())
-      .then(async (result) => {
-        const FACE_RECOGNITION_VECTOR =
-          result.outputs[0].data.regions[0].region_info.bounding_box;
-        if (result.status.description == "Ok") {
-          const response = await fetch("https://face-recognition-node.onrender.com/image", {
-            method: "put",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              reqId: userId,
-            }),
-          });
-          const data = await response.json();
-          setUserInformation({ ...userInformation, userEntries: data[0].entries });
-        }
+    try {
+      const RESPONSE = await fetch(
+        `https://api.clarifai.com/v2/models/face-detection/versions/6dc7e46bc9124c5c8824be4822abe105/outputs`,
+        REQUEST_OPTIONS
+      );
+      const DATA = await RESPONSE.json();
+      const FACE_RECOGNITION_VECTOR =
+        DATA.outputs[0].data.regions[0].region_info.bounding_box;
 
-        return displayBox(calculateFaceLocation(FACE_RECOGNITION_VECTOR));
-      })
-      .catch((error) => console.log("error", error));
+      if (DATA.status.code == 10000) {
+        const response = await fetch("http://localhost:4000/image", {
+          method: "put",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            reqId: userId,
+          }),
+        });
+        const data = await response.json();
+        setUserInformation({
+          ...userInformation, userEntries: data[0].entries == undefined ? 0 : data[0].entries
+        });
+      }
+
+      return displayBox(calculateFaceLocation(FACE_RECOGNITION_VECTOR));
+    } catch (error) {
+      toast.error('Please add a valid link', optionToast)
+    }
   };
 
   const particlesInit = useCallback(async (engine) => {
@@ -100,6 +116,7 @@ const Home = () => {
 
   return (
     <div>
+      <ToastContainer></ToastContainer>
       <Logo />
       <Navigation
         setUserInformation={setUserInformation}

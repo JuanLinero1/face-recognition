@@ -4,6 +4,9 @@ import Rank from "./rank";
 const ImageLinkForm = (props) => {
   const [url, setUrl] = useState("");
     
+  const handleChange = (e) => {
+    e ? setUrl(e) : undefined
+  }
   return (
     <div className="application">
       <Rank userInformation={{ props }} />
@@ -15,7 +18,7 @@ const ImageLinkForm = (props) => {
           type="text"
           className="application--form-input"
           placeholder="Add a link"
-          onChange={(e) => setUrl(e.target.value)}
+          onChange={(e) => handleChange(e.target.value)}
         />
         <button
           type="submit"
