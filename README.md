@@ -1,4 +1,4 @@
-# face-recognition
+# [face-recognition](https://aesthetic-lily-c776ce.netlify.app)
 Welcome to one of my projects. An intuitive web application that uses the Clarifai API to provide you with a user-friendly experience for analyzing facial images. you can as easily as adding a link, detect faces, although it currently only can recognize one face.
 
 At the core of is the integration with Clarifai API, a powerful artificial intelligence platform that excels in facial recognition and analysis.
